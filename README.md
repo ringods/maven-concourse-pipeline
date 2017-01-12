@@ -1,10 +1,6 @@
 # maven-concourse-pipeline
 
-Learn to use https://concourse.ci to build a pipeline for java/maven projects.
-
-* [00 - Set up concourse (locally)]
-* [01 - Compile & Verify]
-* [02 - Use corporate Maven Repository]
+The goal of this project is to build a Reference [Concourse](https://concourse.ci) Pipeline for Java applications. 
 
 ## Credits
 
