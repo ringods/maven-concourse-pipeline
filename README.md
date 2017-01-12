@@ -67,3 +67,7 @@ Do `git checkout 01_build_and_verify`
 ### 02 - Use corporate Maven Repository
 
 Do `git checkout 02_use_corporate_maven_repo`
+
+### 03 - Deploy artifact to Maven Repository
+
+Do `git checkout 03_deploy_artifact`
