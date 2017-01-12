@@ -75,3 +75,19 @@ Do `git checkout 03_deploy_artifact`
 ### 20 - [Deploy artifact from Maven Repository to Cloud Foundry](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_push_to_pcf)
 
 Do `git checkout 20_push_to_pcf`
+
+
+## Next Installments
+
+### Deploy Java Reports (Junit, Code Analysis, others) to a web server
+
+### Manage Artifact versions (minor, major, release, etc)
+
+### Provision services (required by the application)
+
+### Push to production if acceptance tests pass
+
+### Provision the PCF runtime where to push our applications
+Before we can push our application, we need to provision the necessary infrastructure. We need a PCF foundation identified by an URL, we also need an organization, a space and a user. That space/organization must be configured with certain physical prerequisites like amount of RAM, disk, etc.
+
+This type of provisioning occurs before any application attempts to deploy itself. Furthermore, it is very likely that several applications will be deployed on the same runtime environment. To be more specifics, in terms of PCF, a runtime environment is a space within an organization within a PCF foundation. And we can go even further and assume that we could have many runtime environments for different line of business; we could have all the front-office applications running in one runtime environment and all the back-office apps in separate runtime environment. Some people use the term ecosystem to refer to a runtime environment. Sounds like a good name to me too. To summarize, applications are deployed to ecosystems which must be previously provisioned by someone...
