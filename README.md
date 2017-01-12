@@ -60,14 +60,18 @@ All we have to do is run the suggested command: `fly -t plan1 sync` and it will 
 
 Now, we are all set to continue.
 
-### 01 - Compile & Verify
+### 01 - [Compile & Verify](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/01_build_and_verify)
 
 Do `git checkout 01_build_and_verify`
 
-### 02 - Use corporate Maven Repository
+### 02 - [Use corporate Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/02_use_corporate_maven_repo)
 
 Do `git checkout 02_use_corporate_maven_repo`
 
-### 03 - Deploy artifact to Maven Repository
+### 03 - [Deploy artifact to Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/03_deploy_artifact)
 
 Do `git checkout 03_deploy_artifact`
+
+### 20 - [Deploy artifact from Maven Repository to Cloud Foundry](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_push_to_pcf)
+
+Do `git checkout 20_push_to_pcf`
