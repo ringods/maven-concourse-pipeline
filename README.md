@@ -76,12 +76,9 @@ Do `git checkout 04_install_built_artifact`
 
 Do `git checkout 20_deploy_and_verify`
 
-
 ## Next Installments
 
 ### Deploy Java Reports (Junit, Code Analysis, others) to a web server
-
-### Manage Artifact versions (minor, major, release, etc)
 
 ### Provision services (required by the application)
 
