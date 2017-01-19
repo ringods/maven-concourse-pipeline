@@ -1,6 +1,6 @@
 # maven-concourse-pipeline
 
-The goal of this project is to build a Reference [Concourse](https://concourse.ci) Pipeline for Java applications. 
+The goal of this project is to build a Reference [Concourse](https://concourse.ci) Pipeline for Java applications.
 
 ## Credits
 
@@ -64,13 +64,17 @@ Do `git checkout 01_build_and_verify`
 
 Do `git checkout 02_use_corporate_maven_repo`
 
-### 03 - [Deploy artifact to Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/03_deploy_artifact)
+### 03 - [Deploy artifact to Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/03_release_versioned_artifact)
 
-Do `git checkout 03_deploy_artifact`
+Do `git checkout 03_release_versioned_artifact`
 
-### 20 - [Deploy artifact from Maven Repository to Cloud Foundry](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_push_to_pcf)
+### 04 - [Deploy artifact to Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/04_install_built_artifact)
 
-Do `git checkout 20_push_to_pcf`
+Do `git checkout 04_install_built_artifact`
+
+### 20 - [Deploy artifact from Maven Repository to Cloud Foundry](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_deploy_and_verify)
+
+Do `git checkout 20_deploy_and_verify`
 
 
 ## Next Installments
