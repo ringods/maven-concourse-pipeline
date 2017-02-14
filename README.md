@@ -80,9 +80,10 @@ Do `git checkout 20_deploy_and_verify`
 
 ### Deploy Java Reports (Junit, Code Analysis, others) to a web server
 
-### Provision services (required by the application)
+### 40 - [Provision services (required by the application)](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/40_provision_infra_with_terraform)
 
 ### Push to production if acceptance tests pass
+
 
 ### Provision the PCF runtime where to push our applications
 Before we can push our application, we need to provision the necessary infrastructure. We need a PCF foundation identified by an URL, we also need an organization, a space and a user. That space/organization must be configured with certain physical prerequisites like amount of RAM, disk, etc.
