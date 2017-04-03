@@ -15,6 +15,14 @@ We will dedicate a branch to perform each step. This branch, the master, is dedi
 
 The current project contains concourse artifacts, i.e. pipeline, tasks and script files. It does not build any specific project.
 
+The tutorial will be based on this directory layout of the Tutorial
+```
+concourse-tutorial
+  |
+  └-- maven-concourse-pipeline (clone from https://github.com/MarcialRosales/maven-concourse-pipeline/)
+  └-- maven-concourse-pipeline-app1 (clone from your own repository)
+
+```
 
 ## 00 - Set up repository for our sample application
 
@@ -96,7 +104,7 @@ Now, we are all set to continue.
 
 ### 20 - [Deploy, Verify and Promote Release candidate](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_deploy_and_verify)
 
-`concourse-tutorial/maven-course-pipeline$ git checkout origin/20_deploy_and_verify` 
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/20_deploy_and_verify`
 
 
 ## Next Installments
