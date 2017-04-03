@@ -47,7 +47,7 @@ To launch concourse we run `docker-compose up` which by default reads the file `
   ```
   CONCOURSE_EXTERNAL_URL=`echo $DOCKER_HOST | sed s/tcp/http/ | sed s/2376/8080/` nohup docker-compose up
   ```
-  
+
 We can open the `CONCOURSE_EXTERNAL_URL` in our browser. The default credentials are concourse:changeme
 
 **Download fly**
@@ -78,23 +78,26 @@ Now, we are all set to continue.
 
 ### 01 - [Compile & Verify](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/01_build_and_verify)
 
-Do `git checkout 01_build_and_verify`
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/01_build_and_verify`
 
 ### 02 - [Use corporate Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/02_use_corporate_maven_repo)
 
-Do `git checkout 02_use_corporate_maven_repo`
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/02_use_corporate_maven_repo`
 
 ### 03 - [Release Versioned Artifacts](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/03_release_versioned_artifact)
 
-Do `git checkout 03_release_versioned_artifact`
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/03_release_versioned_artifact`
+
 
 ### 04 - [Install Built Artifact to Maven Repo](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/04_install_built_artifact)
 
-Do `git checkout 04_install_built_artifact`
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/04_install_built_artifact`
+
 
 ### 20 - [Deploy, Verify and Promote Release candidate](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_deploy_and_verify)
 
-Do `git checkout 20_deploy_and_verify`
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/20_deploy_and_verify` 
+
 
 ## Next Installments
 
