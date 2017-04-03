@@ -1,35 +1,53 @@
-# maven-concourse-pipeline
+maven-concourse-pipeline
+====
 
 The goal of this project is to build a Reference [Concourse](https://concourse.ci) Pipeline for Java applications.
 
-## Credits
+# Credits
 
 https://github.com/starkandwayne/concourse-tutorial.
 
 
-## Tutorial
+# Tutorial
 
 We have built a step by step tutorial on how to build a standard Continuous Integration pipeline to build java applications.
-We will dedicate a branch to perform each step. The main or master branch is dedicated to the chapter 00 where we set up Concourse.
+We will dedicate a branch to perform each step. This branch, the master, is dedicated to the chapter 00 where we set up Concourse and a git repository for the application we will build using the pipeline.
 
-The current project contains concourse artifacts, i.e. pipeline, tasks and script files. It does not build any specific project. Instead, we are going to use this project to build real application projects. In fact, we are going to build the project [app1](https://github.com/MarcialRosales/maven-concourse-pipeline-app1). This is a simple Spring Boot application.
+The current project contains concourse artifacts, i.e. pipeline, tasks and script files. It does not build any specific project.
 
-### 00 - Set up Concourse
+
+## 00 - Set up repository for our sample application
+
+1. First create a folder
+  ```
+  mkdir concourse-tutorial
+  cd concourse-tutorial
+  ```
+2. Checkout master branch of this repository
+  ```
+  concourse-tutorial$ git clone https://github.com/MarcialRosales/maven-concourse-pipeline
+  ```
+3. Create a repository or fork https://github.com/MarcialRosales/maven-concourse-pipeline-app1 repo
+4. Checkout your repository
+  ```
+  concourse-tutorial$ git clone https://github.com/<myaccount>/maven-concourse-pipeline-app1
+  ```
+
+## 00 - Set up Concourse
 
 **Launch Concourse with Docker-compose**
-We are going to launch Concourse using *Docker compose*. On this `master` branch
- we have a `docker-compose.yml` file and a `keys` folder with all the required ssh keys.
+Access the folder `maven-concourse-pipeline`. From this folder, we are going to launch Concourse using *Docker compose*. This folder has a `docker-compose.yml` file and a `keys` folder with all the required ssh keys.
 
-Make sure you are in the master branch (`git checkout master`) and you must have [Docker](https://docs.docker.com/engine/installation/)
-and [Docker compose](https://docs.docker.com/compose/install/) installed too.
+Make sure you have [Docker](https://docs.docker.com/engine/installation/)
+and [Docker compose](https://docs.docker.com/compose/install/) installed.
 
 To launch concourse we run `docker-compose up` which by default reads the file `docker-compose.yml`. On this file we have declared the 3 containers we need to run Concourse: the **database**, the **web-server** which gives us the nice Concourse front-end and the **worker** container where concourse executes the tasks.
 
-**Note: Running via docker-machine** : *If you are running concourse via docker-machine (not natively) make sure you set up the environment variable CONCOURSE_EXTERNAL_URL before running `docker-compose up`*.
-
-```
-CONCOURSE_EXTERNAL_URL=`echo $DOCKER_HOST | sed s/tcp/http/ | sed s/2376/8080/` nohup docker-compose up
-```
+**Note: Running via docker-machine** : *If you are running concourse via docker-machine (not natively) make sure you set up the environment variable CONCOURSE_EXTERNAL_URL before running `docker-compose up`*.  
+  ```
+  CONCOURSE_EXTERNAL_URL=`echo $DOCKER_HOST | sed s/tcp/http/ | sed s/2376/8080/` nohup docker-compose up
+  ```
+  
 We can open the `CONCOURSE_EXTERNAL_URL` in our browser. The default credentials are concourse:changeme
 
 **Download fly**
@@ -55,6 +73,8 @@ cowardly refusing to run due to significant version discrepancy
 All we have to do is run the suggested command: `fly -t plan1 sync` and it will automatically upgrade our *fly* client.
 
 Now, we are all set to continue.
+
+## Next chapters
 
 ### 01 - [Compile & Verify](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/01_build_and_verify)
 
