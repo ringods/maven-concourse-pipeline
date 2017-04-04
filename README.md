@@ -15,7 +15,7 @@ We will dedicate a branch to perform each step. This branch, the master, is dedi
 
 The current project contains concourse artifacts, i.e. pipeline, tasks and script files. It does not build any specific project.
 
-The tutorial will be based on this directory layout:
+If you want to follow this tutorial you will need the following directory layout:
 ```
 concourse-tutorial
   |
