@@ -88,7 +88,7 @@ Now, we are all set to continue.
 
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/01_build_and_verify`
 
-![Pipeline](assets/01_build_and_verify.png)
+![Pipeline](assets/pipeline1.png)
 
 ### 02 - [Use corporate Maven Repository](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/02_use_corporate_maven_repo)
 
@@ -108,7 +108,7 @@ Now, we are all set to continue.
 
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/20_deploy_and_verify`
 
-![Pipeline](assets/20_deploy_and_verify.png)
+![Pipeline](assets/pipeline20.png)
 
 ### 05 - [Feature branches and automatic branch tracking]()
 
@@ -116,6 +116,7 @@ Now, we are all set to continue.
 
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/30_deploy_surefire_reports`
 
+![Pipeline](assets/pipeline30.png)
 
 ## Next Installments
 
