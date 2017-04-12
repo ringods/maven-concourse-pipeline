@@ -104,15 +104,14 @@ Now, we are all set to continue.
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/04_install_built_artifact`
 
 
-### 20 - [Deploy, Verify and Promote Release candidate](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_deploy_and_verify)
+### 05 - [Deploy, Verify and Promote Release candidate](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/20_deploy_and_verify)
 
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/20_deploy_and_verify`
 
 ![Pipeline](assets/pipeline20.png)
 
-### 05 - [Feature branches and automatic branch tracking]()
 
-### 30 - [Deploy Surefire Reports](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/30_deploy_surefire_reports)
+### 06 - [Deploy Surefire Reports](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/30_deploy_surefire_reports)
 
 `concourse-tutorial/maven-course-pipeline$ git checkout origin/30_deploy_surefire_reports`
 
@@ -120,7 +119,9 @@ Now, we are all set to continue.
 
 ## Next Installments
 
-### 40 - [Provision services (required by the application)](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/40_provision_infra_with_terraform)
+### Feature branches and automatic branch tracking
+
+### [Provision services (required by the application)](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/40_provision_infra_with_terraform)
 
 ### Push to production if acceptance tests pass
 
