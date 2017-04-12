@@ -112,11 +112,12 @@ Now, we are all set to continue.
 
 ### 05 - [Feature branches and automatic branch tracking]()
 
+### 30 - [Deploy Surefire Reports](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/30_deploy_surefire_reports)
+
+`concourse-tutorial/maven-course-pipeline$ git checkout origin/30_deploy_surefire_reports`
 
 
 ## Next Installments
-
-### Deploy Java Reports (Junit, Code Analysis, others) to a web server
 
 ### 40 - [Provision services (required by the application)](https://github.com/MarcialRosales/maven-concourse-pipeline/tree/40_provision_infra_with_terraform)
 
