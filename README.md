@@ -1,5 +1,5 @@
 maven-concourse-pipeline
-====
+=====
 
 The goal of this project is to build a Reference [Concourse](https://concourse.ci) Pipeline for Java applications.
 
