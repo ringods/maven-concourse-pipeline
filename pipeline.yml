@@ -1,70 +1,69 @@
 resource_types:
 - name: artifactory
-  type: docker-image
+  type: registry-image
   source:
-    repository: pivotalservices/artifactory-resource
+    repository: springio/artifactory-resource
+    tag: 0.0.13
 
 resources:
 - name: source-code-resource
   type: git
   source:
-    uri: {{source-code-resource-uri}}
-    private_key: {{github-private-key}}
-    branch: {{source-code-resource-branch}}
+    uri: ((source-code-resource-uri))
+    private_key: ((github-private-key))
+    branch: ((source-code-resource-branch))
 
-- name: acceptance-test-resource
-  type: git
-  source:
-    uri: {{acceptance-test-resource-uri}}
-    private_key: {{github-private-key}}
-    branch: {{acceptance-test-resource-branch}}
+# - name: acceptance-test-resource
+#   type: git
+#   source:
+#     uri: ((acceptance-test-resource-uri))
+#     private_key: ((github-private-key))
+#     branch: ((acceptance-test-resource-branch))
 
 - name: pipeline-resource
   type: git
   source:
-    uri: {{pipeline-resource-uri}}
-    branch: {{pipeline-resource-branch}}
-    private_key: {{github-private-key}}
+    uri: ((pipeline-resource-uri))
+    branch: ((pipeline-resource-branch))
+    private_key: ((github-private-key))
 
 - name: version-resource
   type: semver
   source:
     driver: git
     initial_version: 0.0.1
-    uri: {{source-code-resource-uri}} # convention over configuration = version file is on the version branch of the application's repo
-    private_key: {{github-private-key}}
+    uri: ((source-code-resource-uri)) # convention over configuration = version file is on the version branch of the application's repo
+    private_key: ((github-private-key))
     branch: version
     file: version
 
 - name: build-artifact-resource
   type: artifactory
   source:
-    endpoint: {{repo-uri}}
-    repository: {{repo-build-folder}}
-    regex: {{repo-release-regex}}
-    username: {{repo-username}}
-    password: {{repo-password}}
-    skip_ssl_verification: true
+    uri: ((repo-release-uri))
+    username: ((repo-username))
+    password: ((repo-password))
+    build_name: maven-concourse-pipeline-app1
 
-- name: candidate-artifact-resource
-  type: artifactory
-  source:
-    endpoint: {{repo-uri}}
-    repository: {{repo-candidate-folder}}
-    regex: {{repo-release-regex}}
-    username: {{repo-username}}
-    password: {{repo-password}}
-    skip_ssl_verification: true
+# - name: candidate-artifact-resource
+#   type: artifactory
+#   source:
+#     endpoint: ((repo-uri))
+#     repository: ((repo-candidate-folder))
+#     regex: ((repo-release-regex))
+#     username: ((repo-username))
+#     password: ((repo-password))
+#     skip_ssl_verification: true
 
-- name: pcf-resource
-  type: cf
-  source:
-    api: {{cf-api}}
-    username: {{cf-username}}
-    password: {{cf-password}}
-    organization: {{cf-org}}
-    space: {{cf-space}}
-    skip_cert_check: false
+# - name: pcf-resource
+#   type: cf
+#   source:
+#     api: ((cf-api))
+#     username: ((cf-username))
+#     password: ((cf-password))
+#     organization: ((cf-org))
+#     space: ((cf-space))
+#     skip_cert_check: false
 
 jobs:
 - name: job-build-and-verify
@@ -79,82 +78,89 @@ jobs:
     input_mapping: {source-code: source-code-resource, pipeline: pipeline-resource, version: version-resource}
     output_mapping: {build: install-artifact}
     params:
-      BRANCH: {{source-code-resource-branch}}
-      M2_SETTINGS_REPO_ID: {{repo-id}}
-      M2_SETTINGS_REPO_USERNAME: {{repo-username}}
-      M2_SETTINGS_REPO_PASSWORD: {{repo-password}}
-      M2_SETTINGS_REPO_RELEASE_URI: {{repo-release-uri}}
-      M2_SETTINGS_REPO_SNAPSHOT_URI: {{repo-snapshot-uri}}
+      BRANCH: ((source-code-resource-branch))
+      M2_SETTINGS_REPO_ID: ((repo-id))
+      M2_SETTINGS_REPO_USERNAME: ((repo-username))
+      M2_SETTINGS_REPO_PASSWORD: ((repo-password))
+      M2_SETTINGS_REPO_VIRTUAL_URI: ((repo-virtual-uri))
+      M2_SETTINGS_REPO_RELEASE_URI: ((repo-release-uri))
+      M2_SETTINGS_REPO_SNAPSHOT_URI: ((repo-snapshot-uri))
   - put: build-artifact-resource
+    inputs:
+    - install-artifact
     params:
-      file: install-artifact/*
+      repo: maven-local
+      module_layout: maven
+      build_number: "${BUILD_ID}"
+      folder: install-artifact
+      build_uri: "http://localhost:8080/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}"
 
-- name: job-deploy
-  plan:
-  - get: build-artifact-resource
-    trigger: true
-    passed: [job-build-and-verify]
-  - get: pipeline-resource
-  - task: generate-manifest
-    file: pipeline-resource/tasks/generate-manifest.yml
-    input_mapping: {pipeline: pipeline-resource, artifact: build-artifact-resource}
-    params:
-      APP_NAME: {{cf-app-name}}
-      APP_HOST: {{cf-app-host}}
-      APP_DOMAIN: {{cf-app-domain}}
-  - put: pcf-resource
-    params:
-      manifest: manifest/manifest.yml
+# - name: job-deploy
+#   plan:
+#   - get: build-artifact-resource
+#     trigger: true
+#     passed: [job-build-and-verify]
+#   - get: pipeline-resource
+#   - task: generate-manifest
+#     file: pipeline-resource/tasks/generate-manifest.yml
+#     input_mapping: {pipeline: pipeline-resource, artifact: build-artifact-resource}
+#     params:
+#       APP_NAME: ((cf-app-name))
+#       APP_HOST: ((cf-app-host))
+#       APP_DOMAIN: ((cf-app-domain))
+#   - put: pcf-resource
+#     params:
+#       manifest: manifest/manifest.yml
 
-- name: job-acceptance-test
-  plan:
-  - get: build-artifact-resource
-    trigger: true
-    passed: [job-deploy]
-  - get: acceptance-test-resource
-    trigger: true
-  - get: pipeline-resource
-  - task: run-acceptance-test
-    file: pipeline-resource/tasks/maven-test.yml
-    input_mapping: {acceptance-test: acceptance-test-resource, pipeline: pipeline-resource}
-    params:
-      APP_DOMAIN: {{cf-app-domain}}
-      APP_HOST: {{cf-app-host}}
-      M2_SETTINGS_REPO_ID: {{repo-id}}
-      M2_SETTINGS_REPO_USERNAME: {{repo-username}}
-      M2_SETTINGS_REPO_PASSWORD: {{repo-password}}
-      M2_SETTINGS_REPO_RELEASE_URI: {{repo-release-uri}}
-      M2_SETTINGS_REPO_SNAPSHOT_URI: {{repo-snapshot-uri}}
-  - put: version-resource
-    params: { pre: rc }
-  - task: promote-build
-    file: pipeline-resource/tasks/promote-build.yml
-    input_mapping: {version: version-resource, build: build-artifact-resource, pipeline: pipeline-resource}
-    output_mapping: {release-candidate: install-artifact}
-  - put: candidate-artifact-resource
-    params:
-      file: install-artifact/*
+# - name: job-acceptance-test
+#   plan:
+#   - get: build-artifact-resource
+#     trigger: true
+#     passed: [job-deploy]
+#   - get: acceptance-test-resource
+#     trigger: true
+#   - get: pipeline-resource
+#   - task: run-acceptance-test
+#     file: pipeline-resource/tasks/maven-test.yml
+#     input_mapping: {acceptance-test: acceptance-test-resource, pipeline: pipeline-resource}
+#     params:
+#       APP_DOMAIN: ((cf-app-domain))
+#       APP_HOST: ((cf-app-host))
+#       M2_SETTINGS_REPO_ID: ((repo-id))
+#       M2_SETTINGS_REPO_USERNAME: ((repo-username))
+#       M2_SETTINGS_REPO_PASSWORD: ((repo-password))
+#       M2_SETTINGS_REPO_RELEASE_URI: ((repo-release-uri))
+#       M2_SETTINGS_REPO_SNAPSHOT_URI: ((repo-snapshot-uri))
+#   - put: version-resource
+#     params: { pre: rc }
+#   - task: promote-build
+#     file: pipeline-resource/tasks/promote-build.yml
+#     input_mapping: {version: version-resource, build: build-artifact-resource, pipeline: pipeline-resource}
+#     output_mapping: {release-candidate: install-artifact}
+#   - put: candidate-artifact-resource
+#     params:
+#       file: install-artifact/*
 
-- name: increase-major
-  serial: true
-  plan:
-  - put: version-resource
-    params: { bump: major }
+# - name: increase-major
+#   serial: true
+#   plan:
+#   - put: version-resource
+#     params: { bump: major }
 
-- name: increase-minor
-  serial: true
-  plan:
-  - put: version-resource
-    params: { bump: minor }
+# - name: increase-minor
+#   serial: true
+#   plan:
+#   - put: version-resource
+#     params: { bump: minor }
 
 
-groups:
-- name: build
-  jobs:
-  - job-build-and-verify
-  - job-deploy
-  - job-acceptance-test
-- name: versioning
-  jobs:
-  - increase-major
-  - increase-minor
+# groups:
+# - name: build
+#   jobs:
+#   - job-build-and-verify
+#   - job-deploy
+#   - job-acceptance-test
+# - name: versioning
+#   jobs:
+#   - increase-major
+#   - increase-minor
