@@ -7,6 +7,7 @@ image_resource:
 inputs:
   - name: acceptance-test
   - name: pipeline
+  - name: version
 
 run:
   path: pipeline/tasks/maven-test.sh
