@@ -20,7 +20,7 @@ cat > ${HOME}/.m2/settings.xml <<EOF
           <mirror>
             <id>${M2_SETTINGS_REPO_ID}</id>
             <mirrorOf>*</mirrorOf>
-            <url>${M2_SETTINGS_REPO_RELEASE_URI}</url>
+            <url>${M2_SETTINGS_REPO_VIRTUAL_URI}</url>
             <name>Artifactory</name>
           </mirror>
       </mirrors>
