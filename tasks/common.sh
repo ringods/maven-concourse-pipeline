@@ -11,5 +11,5 @@ function git_ref() {
 
 # Usage: build_version version_folder version_file source_folder branch_Name
 function build_version() {
-  echo $(current_sem_ver $1 $2)+$(git_ref $3 $4)
+  echo $(current_sem_ver $1 $2)
 }
