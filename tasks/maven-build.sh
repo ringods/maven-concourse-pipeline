@@ -23,8 +23,8 @@ echo "Setting maven with version to build"
 mvn versions:set -DnewVersion=${VERSION}
 
 echo "Building artifact ..."
-mvn verify ${MAVEN_ARGS}
+mvn deploy ${MAVEN_ARGS} -DaltDeploymentRepository=repo::default::file:../build
 
 echo "Copying artifact to ./build "
 cp target/*.jar ../build
-ls -l ../build
+ls -lR ../build
