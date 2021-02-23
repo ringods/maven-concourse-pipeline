@@ -25,6 +25,5 @@ mvn versions:set -DnewVersion=${VERSION}
 echo "Building artifact ..."
 mvn deploy ${MAVEN_ARGS} -DaltDeploymentRepository=repo::default::file:../build
 
-echo "Copying artifact to ./build "
-cp target/*.jar ../build
+echo "Showing contents of ./build "
 ls -lR ../build
