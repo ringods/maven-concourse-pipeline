@@ -40,7 +40,7 @@ resources:
 - name: build-artifact-resource
   type: artifactory
   source:
-    uri: ((repo-release-uri))
+    uri: ((repo-uri))
     username: ((repo-username))
     password: ((repo-password))
     build_name: maven-concourse-pipeline-app1
@@ -94,6 +94,8 @@ jobs:
       build_number: "${BUILD_ID}"
       folder: install-artifact
       build_uri: "http://localhost:8080/teams/${BUILD_TEAM_NAME}/pipelines/${BUILD_PIPELINE_NAME}"
+  - put: version-resource
+    params: { pre: rc }
 
 # - name: job-deploy
 #   plan:
